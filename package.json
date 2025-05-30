@@ -1,0 +1,17 @@
+{
+  "name": "hercode_in_ts",
+  "version": "1.0.0",
+  "description": "#### 介绍 全女性编程语言:hercode 实现(implement in ts) 不好的bug和issue自己会删",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/compiler/parser.js",
+    "test": "node ./src/test.js",
+    "genTest": "node ./src/test.js --gen"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  }
+}
