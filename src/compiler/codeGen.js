@@ -35,7 +35,10 @@ class Instruction{
         }
     }
  
-
+    addVaribleInstruction(name, value){
+        this.variables[name] = true;
+        this.addInstruction(`let ${name} = ${value}`);
+    }
     addCallInstruction(name, args = []) {
         if (!this.variables[name]){
             console.warn(`姐妹 ${name} 好像没有定义哦, 但放心，程序依然会运行`);

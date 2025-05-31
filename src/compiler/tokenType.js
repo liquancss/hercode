@@ -14,5 +14,6 @@ const tokenType ={
     'RightBrace': "RightBrace",
     'StartKeyWord': "StartKeyWord",
     'MagicFirstLine': "MagicFirstLine",
+    'LocalKeyword': "LocalKeyword",
 };
 exports.tokenType = tokenType;

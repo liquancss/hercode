@@ -16,7 +16,13 @@
 
 ## 实现feature
 - 详见 [./src/test](./test) 目录
-- 
+- 定义变量, 女生单词均不能被定义，否则抛出错误
+```js
+// 正常
+local aaa : "啊啊啊，我可以定义一个变量了"
+// Fatal Error
+local female : "啊啊啊，我可以定义一个变量了"
+```
 ![实现feature](./feature.png)
 ## 实现方式
 - 将 ```hercode``` 转为js执行

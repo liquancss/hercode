@@ -32,11 +32,10 @@ class Parser{
             this.skipWhitespace();
         }
     }
-    matchToken(tokenType){
+    matchToken(...tokenTypes){
         const currentToken = this.currentToken;
-        
-        if (currentToken !== tokenType) {
-            throw new Error(`Expected token type ${tokenType}, but got ${currentToken} at position ${this.position}`);
+        if (!tokenTypes.includes(currentToken)) {
+            throw new Error(`Expected token type ${tokenTypes.join(" or ")}, but got ${currentToken} at position ${this.position}`);
         }
         
         
@@ -51,7 +50,7 @@ function parseSayStatement(parser) {
     parser.matchToken(tokenType.SayKeyword);
     parser.skipWhitespace();
     const val = parser.lastCacheValue;
-    parser.matchToken(tokenType.StringLiteral);
+    parser.matchToken(tokenType.StringLiteral, tokenType.IDENTIFIER);
     parser.codeGen.addCallInstruction('console.log', [val]);
 }
 // 函数调用
@@ -83,6 +82,23 @@ function parseMagicFirstLine(parser) {
     
     parser.codeGen.addCallInstruction('console.log', [JSON.stringify(magicLine)]);
 }
+// local变量
+function parseLocalVariable(parser) {
+    parser.matchToken(tokenType.LocalKeyword);
+    parser.skipWhitespace();
+    const variableName = parser.lastCacheValue;
+    parser.matchToken(tokenType.IDENTIFIER);
+    
+    if (['her','she', 'women', 'girl', 'female'].includes(variableName)) {
+        throw new Error(`Fatal Error, 女生不能被定义`);
+    }
+    parser.matchToken(tokenType.Colon);
+    parser.skipWhitespace();
+    const value = parser.lastCacheValue;
+
+    parser.matchToken(tokenType.StringLiteral);
+    parser.codeGen.addVaribleInstruction(variableName, value);
+}
 function parseStatement(parser) {
     switch(parser.currentToken){
         case tokenType.SayKeyword:
@@ -99,6 +115,9 @@ function parseStatement(parser) {
             break;
         case tokenType.MagicFirstLine:
             parseMagicFirstLine(parser);
+            break;
+        case tokenType.LocalKeyword:
+            parseLocalVariable(parser);
             break;
         default:
             throw new Error(`Unexpected token: ${parser.currentToken} at position ${parser.position}`);
@@ -175,6 +194,8 @@ function _nextToken(parser) {
                 }else if (value === "start"){
                     parser.currentToken = tokenType.StartKeyWord;
 
+                }else if (value === "local"){
+                    parser.currentToken = tokenType.LocalKeyword;
                 }else {
                     parser.currentToken = tokenType.IDENTIFIER;
                 }
@@ -217,8 +238,10 @@ const state  = parse(`
 function you_can_do_this: 
     say "Hello! Her World2" # 这是一个函数
 end
+local female : "啊啊啊，我可以定义一个变量了"
 
 function you_can_do_this_again: 
+    say aa
     say "Hello! Her Worldagain"
     say "Hello! Her Worldagain!!"
 end
