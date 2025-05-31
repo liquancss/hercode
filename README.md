@@ -6,7 +6,7 @@
 
 ## 运行截图
 
-![运行截图](./snapshot.png)
+![运行截图](./snapshot.jpg)
 
 ## 安装教程
 
