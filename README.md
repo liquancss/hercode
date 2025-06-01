@@ -1,7 +1,7 @@
-# hercode_in_ts
+# hercode lang 运行时实现
 
 ## 介绍
-- 全女性编程语言:hercode 实现(implement in ts)
+- 全女性编程语言:hercode lang 运行时实现(implement in js)
 - 不好的bug和issue自己会删
 - 未定义的函数调用也不会影响程序正常运行哦
 - 后期会添加违规变量使用过多的情况下自动挂小红书的功能
